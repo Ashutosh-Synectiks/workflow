@@ -46,7 +46,7 @@ This function handles the addition of a usecase by parsing JSON data from the ev
 ### Description
 This function updates a usecase in a PostgreSQL database based on the provided JSON data and usecase ID.
 
-#### Function Definition
+### Function Definition
     
     Function update_usecase(event, context, callback):
 
@@ -82,9 +82,9 @@ This function updates a usecase in a PostgreSQL database based on the provided J
 ### Description
 This function deletes a usecase in a PostgreSQL database based on the provided JSON data and usecase ID.
 
-#### Function Definition
+### Function Definition
 
-Function delete_usecase(event, context, callback):
+    Function delete_usecase(event, context, callback):
     Extract usecase ID from path parameters
 
     Set up a connection to a PostgreSQL database and Establish the database connection
@@ -114,7 +114,9 @@ Function delete_usecase(event, context, callback):
 ### Description
 This function gets a usecase in a PostgreSQL database based on the provided JSON data and usecase ID.
 
-### Function get_usecase(event, context, callback):
+### Function Definition
+
+    get_usecase(event, context, callback):
 
     Set up a connection to a PostgreSQL database and Establish the database connection
 
