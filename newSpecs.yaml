@@ -1,0 +1,377 @@
+openapi: 3.0.3
+info:
+    title: Workflow Management API
+    version: 1.0.0
+
+tags:
+    - name: Dashboard
+      description: APIs related to the dashboard page
+    - name: User
+      description: APIs related to the Users sign in and sign up
+    - name: Employee
+      description: APIs related to the Employee page
+paths:
+  /dashboard:
+        get:
+            tags:
+                - Dashboard
+            summary: organisation projects and employee details overview
+            operationId: getDashboardDetails
+            responses:
+                "200":
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    totalEmployees:
+                                        type: integer
+                                    totalProjects:
+                                        type: integer
+                                    recentlyJoinedEmployees:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            employee_name:
+                                              type: string
+                                            employee_id:
+                                              type: integer
+                                              format: uuid
+                                            email_address:
+                                              type: string
+                                            designation:
+                                              type: string
+                                            employee_type:
+                                              type: string
+                                            department:
+                                              type: string
+                                            start_date:
+                                              type: string
+                                              format: date
+                "500":
+                    description: "Internal Server Error"
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+  /sign_up:
+    post:
+            tags:
+                - User
+            summary: Log in user
+            operationId: addUser
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                password:
+                                    type: string
+                                confirm_password:
+                                    type: string
+                                
+            responses:
+                "201":
+                    description: New USer created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    user_id:
+                                        type: string
+                                        format: uuid
+                                    user_name:
+                                        type: string
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        description: An internal server error occurred
+  /sign_in:
+    post:
+            tags:
+                - User
+            summary: Add a new USer
+            operationId: UserSignIn
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                user_name:
+                                    type: string
+                                password:
+                                    type: string
+                                remember_me:
+                                    type: boolean
+                                
+            responses:
+                "201":
+                    description: New USer created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    user_id:
+                                        type: string
+                                        format: uuid
+                                    user_name:
+                                        type: string
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        description: An internal server error occurred
+  /forgot_password:
+    post:
+            tags:
+                - User
+            summary: For password recovery
+            operationId: UserFotgotPassword
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                password:
+                                    type: string
+                                remember_me:
+                                    type: boolean
+                                
+            responses:
+                "201":
+                    description: New USer created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    user_id:
+                                        type: string
+                                        format: uuid
+                                    user_name:
+                                        type: string
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        description: An internal server error occurred
+                                        
+  /employee:
+      post:
+            tags:
+                - Employee
+            summary: Add a new Employee
+            operationId: addEmployee
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                personal_information:
+                                  type: object
+                                  properties:
+                                    first_name:
+                                      type: string
+                                    last_name:
+                                      type: string
+                                    email_address:
+                                      type: string
+                                    work_email:
+                                      type: string
+                                    employee_id:
+                                      type: string
+                                    gender:
+                                      type: string
+                                    conatact_no:
+                                      type: integer
+                                    emergency_conact_no:
+                                      type: integer
+                                    address_line_1:
+                                      type: string
+                                    address_line_2:
+                                      type: string
+                                    land_mark:
+                                      type: string
+                                    countary:
+                                      type: string
+                                    state:
+                                      type: string
+                                    city: 
+                                      type: string
+                                    zip_code:
+                                      type: integer
+                                professtional_information:
+                                    type: object
+                                    properties:
+                                      designation:
+                                        type: string
+                                      Pf_no:
+                                        type: string
+                                      Una_no:
+                                        type: string
+                                      department:
+                                        type: string
+                                      direct_reporting_manager:
+                                        type: string
+                                      work_location:
+                                        type: string
+                                Equipment_details:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        device_provided_by:
+                                          type: string
+                                        device_type:
+                                          type: string
+                                        manufacturer_name:
+                                          type: string
+                                        serial_no:
+                                          type: string
+                                        notes:
+                                          type: string
+                                        supply_date:
+                                          type: string
+                                          format: date
+                                Document:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        file_name:
+                                          type: string
+                                        date_uploaed:
+                                          type: string
+                                          format: date
+                                        uploaded_by:
+                                          type: object
+                                          properties:
+                                            employee_id:
+                                              type: string
+                                              format: uuid
+                                            employee_img:
+                                              type: string
+                                              format: url
+                                              
+                                              
+                                        serial_no:
+                                          type: string
+                                        notes:
+                                          type: string
+                                        supply_date:
+                                          type: string
+                                          format: date
+                                      
+            responses:
+                "201":
+                    description: New USer created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    user_id:
+                                        type: string
+                                        format: uuid
+                                    user_name:
+                                        type: string
+                "500":
+                    description: Internal Server Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        description: An internal server error occurred
+      
+      get:
+            tags:
+                - Employee
+            summary: get Employee details
+            operationId: getEmployees
+            parameters:
+                - in: query
+                  name: employee_name
+                  required: false
+                  schema:
+                      type: string
+                  description: name of employee (optional)
+                - in: query
+                  name: category
+                  required: false
+                  schema:
+                      type: string
+                  description: category (permanant, intern, consultant)
+            responses:
+                "200":
+                    description: Ok
+                    content:
+                        application/json:
+                            schema:
+                                        type: array
+                                        items:
+                                          type: object
+                                          properties:
+                                            employee_name:
+                                              type: string
+                                            employee_id:
+                                              type: string
+                                              format: uuid
+                                            email_address:
+                                              type: string
+                                            designation:
+                                              type: string
+                                            employee_type:
+                                              type: string
+                                            department:
+                                              type: string
+                                            start_date:
+                                              type: string
+                                    
+                "500":
+                    description: "Internal Server Error"
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+ 
